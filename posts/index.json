@@ -1,33 +1,5 @@
 [
   {
-    "slug": "what-specific-knowledge-means-acc-naval",
-    "legacySlugs": [
-      "What Specific Knowledge means acc. Naval"
-    ],
-    "url": "blog/what-specific-knowledge-means-acc-naval/",
-    "title": "What Specific Knowledge means acc. Naval",
-    "date": "2026-04-07",
-    "tags": [
-      "life"
-    ],
-    "excerpt": "What Specific Knowledge means acc. Naval",
-    "file": "posts/What%20Specific%20Knowledge%20means%20acc.%20Naval.md"
-  },
-  {
-    "slug": "you-don-t-need-another-productivity-app-you-need-a-life-operating-system",
-    "legacySlugs": [
-      "You Don't Need Another Productivity App - You Need a LifeOS"
-    ],
-    "url": "blog/you-don-t-need-another-productivity-app-you-need-a-life-operating-system/",
-    "title": "You Don't Need Another Productivity App, You Need a Life Operating System",
-    "date": "2026-04-07",
-    "tags": [
-      "life"
-    ],
-    "excerpt": "You Need a Life Operating System",
-    "file": "posts/You%20Don't%20Need%20Another%20Productivity%20App%20-%20You%20Need%20a%20LifeOS.md"
-  },
-  {
     "slug": "how-linux-package-management-actually-works",
     "legacySlugs": [
       "apt-and-linux-packages"
@@ -54,5 +26,31 @@
     ],
     "excerpt": "Practical guide for using claude code with Alibaba coding plan",
     "file": "posts/ccr-alibaba-setup.md"
+  },
+  {
+    "slug": "life-os",
+    "legacySlugs": [],
+    "url": "blog/life-os/",
+    "title": "You Don't Need Another Productivity App, You Need a Life Operating System",
+    "date": "2026-04-07",
+    "tags": [
+      "life"
+    ],
+    "excerpt": "You Need a Life Operating System",
+    "file": "posts/life-os.md"
+  },
+  {
+    "slug": "what-specific-knowledge-means-according-to-naval",
+    "legacySlugs": [
+      "naval-specific-knowledge"
+    ],
+    "url": "blog/what-specific-knowledge-means-according-to-naval/",
+    "title": "What Specific Knowledge means acc. Naval",
+    "date": "2026-04-07",
+    "tags": [
+      "life"
+    ],
+    "excerpt": "What Specific Knowledge means acc. Naval",
+    "file": "posts/naval-specific-knowledge.md"
   }
 ]
