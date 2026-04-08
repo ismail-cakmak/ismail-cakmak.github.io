@@ -1,19 +1,48 @@
-const THEMES = ['light', 'dark', 'tokyo'];
-const LABELS = { light: 'light', dark: 'dark', tokyo: 'tokyo' };
+const THEMES = ['light', 'dark', 'istanbul'];
+const LABELS = { light: 'light', dark: 'dark', istanbul: 'İstanbul' };
 const POSTS_INDEX_PATH = 'posts/index.json';
 
 let postsIndexPromise;
 
+function normalizeTheme(theme) {
+  if (theme === 'tokyo') {
+    return 'light';
+  }
+
+  if (THEMES.includes(theme)) {
+    return theme;
+  }
+
+  return 'light';
+}
+
+function getStoredTheme() {
+  try {
+    return sessionStorage.getItem('theme');
+  } catch (error) {
+    return null;
+  }
+}
+
+function storeTheme(theme) {
+  try {
+    sessionStorage.setItem('theme', theme);
+  } catch (error) {
+    // Ignore storage failures and fall back to the default theme.
+  }
+}
+
 function getTheme() {
-  return localStorage.getItem('theme') || 'light';
+  return normalizeTheme(getStoredTheme() || 'light');
 }
 
 function setTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
+  const nextTheme = normalizeTheme(theme);
+  document.documentElement.setAttribute('data-theme', nextTheme);
+  storeTheme(nextTheme);
   const btn = document.querySelector('.theme-toggle');
   if (btn) {
-    btn.querySelector('.theme-label').textContent = LABELS[theme];
+    btn.querySelector('.theme-label').textContent = LABELS[nextTheme];
   }
 }
 
@@ -364,6 +393,27 @@ function initLightbox() {
   });
 }
 
+function initIntroPhoto() {
+  const photo = document.querySelector('.intro-photo');
+  if (!photo) return;
+
+  const reveal = () => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        photo.classList.add('is-loaded');
+      });
+    });
+  };
+
+  if (photo.complete && photo.naturalWidth > 0) {
+    reveal();
+    return;
+  }
+
+  photo.addEventListener('load', reveal, { once: true });
+  photo.addEventListener('error', reveal, { once: true });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   setTheme(getTheme());
 
@@ -382,6 +432,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   initLightbox();
+  initIntroPhoto();
 
   await Promise.all([
     renderRecentPosts(),
