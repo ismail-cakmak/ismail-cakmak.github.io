@@ -1,0 +1,53 @@
+[
+  {
+    "slug": "building-a-personal-website-with-github-pages",
+    "title": "Building a Personal Website with GitHub Pages",
+    "date": "2026-03-15",
+    "tags": [
+      "web",
+      "design"
+    ],
+    "excerpt": "Why I kept the stack static, how I organized content, and the tradeoffs that came with it.",
+    "file": "posts/building-a-personal-website-with-github-pages.md"
+  },
+  {
+    "slug": "thoughts-on-minimalism-in-software",
+    "title": "Thoughts on Minimalism in Software",
+    "date": "2026-02-28",
+    "tags": [
+      "software"
+    ],
+    "excerpt": "Simplicity is not about having fewer files. It is about making the right things obvious.",
+    "file": "posts/thoughts-on-minimalism-in-software.md"
+  },
+  {
+    "slug": "learning-in-public-a-year-in-review",
+    "title": "Learning in Public: A Year in Review",
+    "date": "2026-01-10",
+    "tags": [
+      "personal"
+    ],
+    "excerpt": "The biggest gains came from writing down what I was confused about before I solved it.",
+    "file": "posts/learning-in-public-a-year-in-review.md"
+  },
+  {
+    "slug": "the-art-of-writing-clean-code",
+    "title": "The Art of Writing Clean Code",
+    "date": "2025-12-05",
+    "tags": [
+      "engineering"
+    ],
+    "excerpt": "Clean code is less about elegance in the abstract and more about reducing future uncertainty.",
+    "file": "posts/the-art-of-writing-clean-code.md"
+  },
+  {
+    "slug": "why-i-switched-to-static-sites",
+    "title": "Why I Switched to Static Sites",
+    "date": "2025-11-18",
+    "tags": [
+      "web"
+    ],
+    "excerpt": "Static sites let me spend my effort on content and design instead of maintaining a publishing system.",
+    "file": "posts/why-i-switched-to-static-sites.md"
+  }
+]

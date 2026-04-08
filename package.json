@@ -1,0 +1,11 @@
+{
+  "name": "personal-website",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "build:posts": "node scripts/build-posts.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
