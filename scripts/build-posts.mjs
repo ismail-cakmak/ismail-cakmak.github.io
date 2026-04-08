@@ -6,8 +6,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const defaultProjectRoot = path.resolve(__dirname, '..');
 
+function normalizeTag(tag = '') {
+  return tag.trim().toLowerCase();
+}
+
 export function parseFrontmatter(raw) {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+  const match = raw.match(/^\s*---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
   if (!match) {
     throw new Error('Post is missing frontmatter.');
   }
@@ -21,7 +25,7 @@ export function parseFrontmatter(raw) {
     const value = line.slice(separatorIndex + 1).trim();
 
     if (key === 'tags') {
-      meta.tags = value ? value.split(',').map(tag => tag.trim()).filter(Boolean) : [];
+      meta.tags = value ? value.split(',').map(tag => normalizeTag(tag)).filter(Boolean) : [];
       continue;
     }
 

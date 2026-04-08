@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Name</title>
+  <title>İsmail Çakmak</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <script>
@@ -20,7 +20,7 @@
 
   <header class="site-header">
     <div class="container">
-      <a href="index.html" class="site-name">Your Name</a>
+      <a href="index.html" class="site-name">İsmail Çakmak</a>
       <div class="header-right">
         <nav>
           <ul class="header-nav">
@@ -44,17 +44,27 @@
   <main class="container page-content">
 
     <section class="intro">
-      <img src="images/profile.png" alt="Your Name" class="intro-photo" loading="eager" fetchpriority="high" decoding="async">
+      <div class="intro-photo-wrap">
+        <img src="images/profile.png" alt="İsmail Çakmak" class="intro-photo" loading="eager" fetchpriority="high" decoding="async">
+        <a href="https://www.claude-monet.com/the-poppy-field.jsp" class="intro-photo-link" aria-label="Open Claude Monet's The Poppy Field">poppy field</a>
+      </div>
       <div class="intro-text">
-        <p>I build thoughtful things for the web. I write about software, design, and the way I work.</p>
+        <p>Life is a change given once, trying to make it worth to spend. I love building things and think about what god built.</p>
       </div>
     </section>
 
-    <h2 class="section-title">Recent Posts</h2>
-    <ul class="post-list" data-post-feed="recent" data-post-limit="5" aria-live="polite">
+    <h2 class="section-title">Life</h2>
+    <ul class="post-list" data-post-feed="life" data-post-tag="life" data-post-limit="5" aria-live="polite">
       <li class="post-item post-item-placeholder">Loading posts...</li>
     </ul>
-    <p class="feed-status" data-post-status="recent" hidden></p>
+    <p class="feed-status" data-post-status="life" hidden></p>
+
+    <h2 class="section-title">Tech</h2>
+    <ul class="post-list" data-post-feed="tech" data-post-tag="tech" data-post-limit="5" aria-live="polite">
+      <li class="post-item post-item-placeholder">Loading posts...</li>
+    </ul>
+    <p class="feed-status" data-post-status="tech" hidden></p>
+
     <a href="blog.html" class="view-all">all posts &rarr;</a>
 
   </main>

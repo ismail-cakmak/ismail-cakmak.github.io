@@ -1,14 +1,14 @@
-const THEMES = ['light', 'dark', 'istanbul'];
-const LABELS = { light: 'light', dark: 'dark', istanbul: 'İstanbul' };
+const THEMES = ['light', 'dark'];
+const LABELS = { light: 'light', dark: 'dark' };
 const POSTS_INDEX_PATH = 'posts/index.json';
 
 let postsIndexPromise;
 
-function normalizeTheme(theme) {
-  if (theme === 'tokyo') {
-    return 'light';
-  }
+function normalizeTag(tag = '') {
+  return tag.trim().toLowerCase();
+}
 
+function normalizeTheme(theme) {
   if (THEMES.includes(theme)) {
     return theme;
   }
@@ -181,7 +181,7 @@ function markdownToHtml(markdown) {
 }
 
 function parseFrontmatter(raw) {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+  const match = raw.match(/^\s*---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
   if (!match) {
     return { meta: {}, body: raw.trim() };
   }
@@ -195,7 +195,7 @@ function parseFrontmatter(raw) {
     const value = line.slice(separatorIndex + 1).trim();
 
     if (key === 'tags') {
-      meta.tags = value ? value.split(',').map(tag => tag.trim()).filter(Boolean) : [];
+      meta.tags = value ? value.split(',').map(tag => normalizeTag(tag)).filter(Boolean) : [];
       return;
     }
 
@@ -253,6 +253,15 @@ function renderPostList(posts) {
   }).join('');
 }
 
+function filterPostsByTag(posts, tag) {
+  const targetTag = normalizeTag(tag);
+  if (!targetTag) {
+    return posts;
+  }
+
+  return posts.filter(post => Array.isArray(post.tags) && post.tags.some(postTag => normalizeTag(postTag) === targetTag));
+}
+
 function groupPostsByYear(posts) {
   return posts.reduce((groups, post) => {
     const year = post.date.slice(0, 4);
@@ -276,18 +285,29 @@ function renderLoadError(key) {
   setStatus(key, 'Posts could not be loaded.');
 }
 
-async function renderRecentPosts() {
-  const feed = document.querySelector('[data-post-feed="recent"]');
-  if (!feed) return;
+async function renderPostFeeds() {
+  const feeds = Array.from(document.querySelectorAll('[data-post-feed]'));
+  if (!feeds.length) return;
 
   try {
     const posts = await loadPostsIndex();
-    const limit = Number.parseInt(feed.dataset.postLimit || '5', 10);
-    const visiblePosts = posts.slice(0, limit);
-    feed.innerHTML = visiblePosts.length ? renderPostList(visiblePosts) : '<li class="post-item post-item-placeholder">No posts yet.</li>';
+    feeds.forEach(feed => {
+      const key = feed.dataset.postFeed;
+      const limit = Number.parseInt(feed.dataset.postLimit || '5', 10);
+      const tag = feed.dataset.postTag || '';
+      const visiblePosts = filterPostsByTag(posts, tag).slice(0, limit);
+      const emptyLabel = tag ? `No ${escapeHtml(tag)} posts yet.` : 'No posts yet.';
+
+      feed.innerHTML = visiblePosts.length
+        ? renderPostList(visiblePosts)
+        : `<li class="post-item post-item-placeholder">${emptyLabel}</li>`;
+      setStatus(key, '');
+    });
   } catch (error) {
-    feed.innerHTML = '';
-    renderLoadError('recent');
+    feeds.forEach(feed => {
+      feed.innerHTML = '';
+      renderLoadError(feed.dataset.postFeed);
+    });
   }
 }
 
@@ -362,7 +382,7 @@ async function renderSinglePost() {
     page.querySelector('[data-post-tags]').innerHTML = renderTags(tags);
     page.querySelector('[data-post-body]').innerHTML = markdownToHtml(parsed.body);
 
-    document.title = `${title} — Your Name`;
+    document.title = `${title} — İsmail Çakmak`;
     article.hidden = false;
     status.hidden = true;
   } catch (error) {
@@ -435,7 +455,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initIntroPhoto();
 
   await Promise.all([
-    renderRecentPosts(),
+    renderPostFeeds(),
     renderArchive(),
     renderSinglePost()
   ]);

@@ -14,14 +14,6 @@
   --tag-text: #6e6055;
   --date-accent: #d49362;
   --photo-ring: rgba(176, 96, 58, 0.12);
-  --surface: transparent;
-  --surface-border: transparent;
-  --surface-shadow: none;
-  --body-background: none;
-  --body-background-size: auto;
-  --body-background-position: center center;
-  --body-background-repeat: repeat;
-  --body-background-attachment: scroll;
 }
 
 [data-theme="dark"] {
@@ -41,34 +33,6 @@
   --photo-ring: rgba(227, 161, 110, 0.12);
 }
 
-[data-theme="istanbul"] {
-  --bg: #efe2cf;
-  --bg-subtle: #f7efe4;
-  --text: #13283b;
-  --text-secondary: #355166;
-  --text-muted: #6f8595;
-  --accent: #0f2436;
-  --link: #0e607c;
-  --link-hover: #0a455a;
-  --border: rgba(15, 36, 54, 0.16);
-  --nav-bg: rgba(252, 247, 240, 0.68);
-  --tag-bg: rgba(17, 53, 78, 0.12);
-  --tag-text: #1b4259;
-  --date-accent: #d88f5a;
-  --photo-ring: rgba(216, 143, 90, 0.2);
-  --surface: rgba(253, 248, 242, 0.74);
-  --surface-border: rgba(255, 255, 255, 0.46);
-  --surface-shadow: 0 18px 48px rgba(15, 36, 54, 0.12);
-  --body-background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.68), transparent 35%),
-    linear-gradient(180deg, rgba(245, 219, 182, 0.85) 0%, rgba(239, 226, 207, 0.92) 48%, rgba(226, 211, 188, 0.98) 100%),
-    url("../images/istanbul-silhouette.svg");
-  --body-background-size: cover, cover, 100% auto;
-  --body-background-position: top left, center center, center bottom;
-  --body-background-repeat: no-repeat, no-repeat, no-repeat;
-  --body-background-attachment: fixed, fixed, fixed;
-}
-
 /* ===== Reset ===== */
 *, *::before, *::after {
   margin: 0;
@@ -81,11 +45,6 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   background-color: var(--bg);
-  background-image: var(--body-background);
-  background-size: var(--body-background-size);
-  background-position: var(--body-background-position);
-  background-repeat: var(--body-background-repeat);
-  background-attachment: var(--body-background-attachment);
   color: var(--text);
   line-height: 1.75;
   min-height: 100vh;
@@ -121,10 +80,12 @@ a:hover {
 }
 
 .site-name {
-  font-size: 1.1rem;
+  font-family: 'Caveat', 'Brush Script MT', cursive;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
+  line-height: 1;
   text-decoration: none;
 }
 .site-name:hover {
@@ -214,47 +175,6 @@ a:hover {
   min-height: 70vh;
 }
 
-[data-theme="istanbul"] .site-header .container {
-  align-items: center;
-  padding-top: 0.9rem;
-  padding-bottom: 0.9rem;
-  background: var(--nav-bg);
-  border: 1px solid var(--surface-border);
-  border-radius: 999px;
-  box-shadow: var(--surface-shadow);
-  backdrop-filter: blur(12px);
-}
-
-[data-theme="istanbul"] .divider {
-  display: none;
-}
-
-[data-theme="istanbul"] .page-content {
-  padding-top: 2rem;
-  padding-bottom: 3rem;
-  background: var(--surface);
-  border: 1px solid var(--surface-border);
-  border-radius: 28px;
-  box-shadow: var(--surface-shadow);
-  backdrop-filter: blur(12px);
-}
-
-[data-theme="istanbul"] .theme-toggle {
-  background: rgba(255, 255, 255, 0.24);
-  color: var(--accent);
-  border-color: rgba(15, 36, 54, 0.08);
-}
-
-[data-theme="istanbul"] .gallery-item {
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 12px 28px rgba(15, 36, 54, 0.1);
-}
-
-[data-theme="istanbul"] .tag {
-  border-radius: 999px;
-  padding: 0.14rem 0.55rem;
-}
-
 /* ===== Home: intro ===== */
 .intro {
   display: flex;
@@ -263,6 +183,14 @@ a:hover {
   text-align: center;
   gap: 1rem;
   margin-bottom: 3rem;
+}
+
+.intro-photo-wrap {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  overflow: hidden;
+  line-height: 0;
 }
 
 .intro-photo {
@@ -281,6 +209,42 @@ a:hover {
 .intro-photo.is-loaded {
   opacity: 1;
   transform: none;
+}
+
+.intro-photo-link {
+  position: absolute;
+  right: 0.85rem;
+  bottom: 0.85rem;
+  z-index: 1;
+  padding: 0.34rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(17, 17, 17, 0.42);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  line-height: 1;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.intro-photo.is-loaded + .intro-photo-link {
+  opacity: 1;
+  transform: none;
+}
+
+.intro-photo-link:hover {
+  color: #fff;
+  text-decoration: none;
+  background: rgba(17, 17, 17, 0.58);
+  border-color: rgba(255, 255, 255, 0.34);
 }
 
 .intro-text {
@@ -622,15 +586,6 @@ a:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  [data-theme="istanbul"] .site-header .container {
-    border-radius: 28px;
-  }
-
-  [data-theme="istanbul"] .page-content {
-    padding-top: 1.5rem;
-    padding-bottom: 2.5rem;
-    border-radius: 22px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -638,5 +593,11 @@ a:hover {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .intro-photo-link {
+    opacity: 1;
+    transform: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
   }
 }
