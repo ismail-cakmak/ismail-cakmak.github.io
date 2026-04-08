@@ -6,6 +6,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const defaultProjectRoot = path.resolve(__dirname, '..');
 
+function slugify(value = '') {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-{2,}/g, '-');
+}
+
+function buildPostUrl(slug) {
+  return `blog/${encodeURIComponent(slug)}/`;
+}
+
+function buildPostFileUrl(fileName) {
+  return `posts/${encodeURIComponent(fileName)}`;
+}
+
 function normalizeTag(tag = '') {
   return tag.trim().toLowerCase();
 }
@@ -47,24 +66,40 @@ export async function collectPosts(postsDir) {
   const fileNames = await readdir(postsDir);
   const posts = [];
   const contentPosts = [];
+  const usedSlugs = new Map();
 
   for (const fileName of fileNames.filter(isMarkdownFile)) {
     const filePath = path.join(postsDir, fileName);
     const raw = await readFile(filePath, 'utf8');
     const meta = parseFrontmatter(raw);
-    const slug = path.basename(fileName, '.md');
+    const fileSlug = path.basename(fileName, '.md');
+    const slug = slugify(meta.slug || meta.title || fileSlug);
 
     if (!meta.title || !meta.date) {
       throw new Error(`${fileName} must define both title and date.`);
     }
 
+    if (!slug) {
+      throw new Error(`${fileName} must resolve to a non-empty slug.`);
+    }
+
+    if (usedSlugs.has(slug)) {
+      throw new Error(
+        `${fileName} resolves to duplicate slug "${slug}", already used by ${usedSlugs.get(slug)}.`
+      );
+    }
+
+    usedSlugs.set(slug, fileName);
+
     const post = {
       slug,
+      legacySlugs: fileSlug !== slug ? [fileSlug] : [],
+      url: buildPostUrl(slug),
       title: meta.title,
       date: meta.date,
       tags: meta.tags || [],
       excerpt: meta.excerpt || '',
-      file: `posts/${fileName}`
+      file: buildPostFileUrl(fileName)
     };
 
     posts.push(post);

@@ -1,26 +1,38 @@
 [
   {
-    "slug": "You Don't Need Another Productivity App - You Need a LifeOS",
-    "title": "You Don't Need Another Productivity App - You Need a Life Operating System",
-    "date": "2026-04-08",
-    "tags": [
-      "life"
+    "slug": "what-specific-knowledge-means-acc-naval",
+    "legacySlugs": [
+      "What Specific Knowledge means acc. Naval"
     ],
-    "excerpt": "A simpler model for tracking behavior around the person you want to become.",
-    "file": "posts/You Don't Need Another Productivity App - You Need a LifeOS.md"
-  },
-  {
-    "slug": "What Specific Knowledge means acc. Naval",
+    "url": "blog/what-specific-knowledge-means-acc-naval/",
     "title": "What Specific Knowledge means acc. Naval",
     "date": "2026-04-07",
     "tags": [
       "life"
     ],
     "excerpt": "What Specific Knowledge means acc. Naval",
-    "file": "posts/What Specific Knowledge means acc. Naval.md"
+    "file": "posts/What%20Specific%20Knowledge%20means%20acc.%20Naval.md"
   },
   {
-    "slug": "apt-and-linux-packages",
+    "slug": "you-don-t-need-another-productivity-app-you-need-a-life-operating-system",
+    "legacySlugs": [
+      "You Don't Need Another Productivity App - You Need a LifeOS"
+    ],
+    "url": "blog/you-don-t-need-another-productivity-app-you-need-a-life-operating-system/",
+    "title": "You Don't Need Another Productivity App, You Need a Life Operating System",
+    "date": "2026-04-07",
+    "tags": [
+      "life"
+    ],
+    "excerpt": "You Need a Life Operating System",
+    "file": "posts/You%20Don't%20Need%20Another%20Productivity%20App%20-%20You%20Need%20a%20LifeOS.md"
+  },
+  {
+    "slug": "how-linux-package-management-actually-works",
+    "legacySlugs": [
+      "apt-and-linux-packages"
+    ],
+    "url": "blog/how-linux-package-management-actually-works/",
     "title": "How Linux Package Management Actually Works",
     "date": "2026-04-07",
     "tags": [
@@ -30,7 +42,11 @@
     "file": "posts/apt-and-linux-packages.md"
   },
   {
-    "slug": "ccr-alibaba-setup",
+    "slug": "using-claude-code-with-alibaba-s-coding-plan-and-claude-pro-a-practical-guide",
+    "legacySlugs": [
+      "ccr-alibaba-setup"
+    ],
+    "url": "blog/using-claude-code-with-alibaba-s-coding-plan-and-claude-pro-a-practical-guide/",
     "title": "Using Claude Code with Alibaba's Coding Plan and Claude Pro (A Practical Guide)",
     "date": "2026-04-07",
     "tags": [

@@ -1,5 +1,6 @@
 ---
 title: Using Claude Code with Alibaba's Coding Plan and Claude Pro (A Practical Guide)
+slug: using-claude-code-with-alibaba-s-coding-plan-and-claude-pro-a-practical-guide
 date: 2026-04-07
 tags: tech
 excerpt: Practical guide for using claude code with Alibaba coding plan

@@ -1,5 +1,6 @@
 ---
 title: How Linux Package Management Actually Works
+slug: how-linux-package-management-actually-works
 date: 2026-04-07
 tags: tech
 excerpt: How Linux Package Management Actually Works

@@ -1,8 +1,58 @@
 const THEMES = ['light', 'dark'];
 const LABELS = { light: 'light', dark: 'dark' };
 const POSTS_INDEX_PATH = 'posts/index.json';
+const BLOG_INDEX_PATH = '/blog/';
+const LEGACY_BLOG_INDEX_PATH = 'blog.html';
+const LEGACY_POST_PATH = 'post.html';
 
 let postsIndexPromise;
+
+function isFileProtocol() {
+  return window.location.protocol === 'file:';
+}
+
+function resolveDocumentUrl(path) {
+  return new URL(path, document.baseURI);
+}
+
+function normalizePagePath(pathname = '') {
+  let normalized = pathname || '/';
+
+  if (!normalized.startsWith('/')) {
+    normalized = `/${normalized}`;
+  }
+
+  if (normalized === '/index.html') {
+    return '/';
+  }
+
+  if (normalized.endsWith('/index.html')) {
+    normalized = normalized.slice(0, -'index.html'.length);
+  }
+
+  const lastSegment = normalized.split('/').pop() || '';
+  if (normalized !== '/' && !normalized.endsWith('/') && !lastSegment.includes('.')) {
+    normalized = `${normalized}/`;
+  }
+
+  return normalized;
+}
+
+function buildPostUrl(slug = '') {
+  return `blog/${encodeURIComponent(slug)}/`;
+}
+
+function buildLegacyPostUrl(slug = '') {
+  return `${LEGACY_POST_PATH}?slug=${encodeURIComponent(slug)}`;
+}
+
+function getPostUrl(post) {
+  if (isFileProtocol()) {
+    return buildLegacyPostUrl(post.slug);
+  }
+
+  return post.url || buildPostUrl(post.slug);
+}
 
 function normalizeTag(tag = '') {
   return tag.trim().toLowerCase();
@@ -211,7 +261,7 @@ async function loadPostsIndex() {
   }
 
   if (!postsIndexPromise) {
-    postsIndexPromise = fetch(POSTS_INDEX_PATH).then(async response => {
+    postsIndexPromise = fetch(resolveDocumentUrl(POSTS_INDEX_PATH)).then(async response => {
       if (!response.ok) {
         throw new Error(`Could not load ${POSTS_INDEX_PATH}`);
       }
@@ -228,7 +278,7 @@ async function loadPostContent(post) {
     return post.body;
   }
 
-  const response = await fetch(post.file);
+  const response = await fetch(resolveDocumentUrl(post.file));
   if (!response.ok) {
     throw new Error(`Could not load ${post.file}`);
   }
@@ -243,7 +293,7 @@ function renderTags(tags = []) {
 
 function renderPostList(posts) {
   return posts.map(post => {
-    const postUrl = `post.html?slug=${encodeURIComponent(post.slug)}`;
+    const postUrl = getPostUrl(post);
     return `
       <li class="post-item">
         <span class="post-date">${escapeHtml(post.date)}</span>
@@ -347,14 +397,68 @@ function formatLongDate(dateString) {
   }).format(date);
 }
 
+function getPathPostSlug(pathname = window.location.pathname) {
+  const match = normalizePagePath(pathname).match(/^\/blog\/([^/]+)\/$/);
+  return match ? decodeURIComponent(match[1]) : '';
+}
+
+function getRequestedPostSlug() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('slug')
+    || document.documentElement.dataset.postSlug
+    || getPathPostSlug();
+}
+
+function findPostBySlug(posts, requestedSlug) {
+  if (!requestedSlug) {
+    return null;
+  }
+
+  return posts.find(post => {
+    const candidates = [post.slug, ...(post.legacySlugs || [])];
+    return candidates.includes(requestedSlug);
+  }) || null;
+}
+
+function ensureCanonicalLink(post) {
+  if (isFileProtocol()) {
+    return;
+  }
+
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    document.head.appendChild(canonical);
+  }
+
+  canonical.href = resolveDocumentUrl(post.url || buildPostUrl(post.slug)).href;
+}
+
+function redirectToCanonicalPost(post) {
+  if (isFileProtocol()) {
+    return false;
+  }
+
+  const currentPath = normalizePagePath(window.location.pathname);
+  const canonicalPath = normalizePagePath(resolveDocumentUrl(post.url || buildPostUrl(post.slug)).pathname);
+  const params = new URLSearchParams(window.location.search);
+
+  if (currentPath !== canonicalPath || params.has('slug')) {
+    window.location.replace(post.url || buildPostUrl(post.slug));
+    return true;
+  }
+
+  return false;
+}
+
 async function renderSinglePost() {
   const page = document.querySelector('[data-post-page]');
   if (!page) return;
 
   const article = page.querySelector('article');
   const status = page.querySelector('[data-post-status="single"]');
-  const params = new URLSearchParams(window.location.search);
-  const slug = params.get('slug');
+  const slug = getRequestedPostSlug();
 
   if (!slug) {
     status.textContent = 'Select a post from the blog archive.';
@@ -363,10 +467,14 @@ async function renderSinglePost() {
 
   try {
     const posts = await loadPostsIndex();
-    const post = posts.find(entry => entry.slug === slug);
+    const post = findPostBySlug(posts, slug);
 
     if (!post) {
       status.textContent = 'That post does not exist.';
+      return;
+    }
+
+    if (redirectToCanonicalPost(post)) {
       return;
     }
 
@@ -383,6 +491,7 @@ async function renderSinglePost() {
     page.querySelector('[data-post-body]').innerHTML = markdownToHtml(parsed.body);
 
     document.title = `${title} — İsmail Çakmak`;
+    ensureCanonicalLink(post);
     article.hidden = false;
     status.hidden = true;
   } catch (error) {
@@ -442,11 +551,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     button.addEventListener('click', cycleTheme);
   }
 
-  const path = window.location.pathname.split('/').pop() || 'index.html';
-  const blogSection = path === 'blog.html' || path === 'post.html';
+  const pathname = window.location.pathname;
+  const currentPath = normalizePagePath(pathname);
+  const currentFileName = pathname.split('/').filter(Boolean).pop() || 'index.html';
+  const blogSection = currentFileName === 'blog.html'
+    || currentFileName === 'post.html'
+    || currentPath.includes(BLOG_INDEX_PATH);
+
   document.querySelectorAll('.header-nav a').forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === path || (path === '' && href === 'index.html') || (blogSection && href === 'blog.html')) {
+    const href = normalizePagePath(link.pathname);
+    const linkFileName = link.pathname.split('/').filter(Boolean).pop() || 'index.html';
+    const linkIsBlog = linkFileName === 'blog.html' || href.includes(BLOG_INDEX_PATH);
+
+    if (linkIsBlog ? blogSection : href === currentPath) {
       link.classList.add('active');
     }
   });
