@@ -1,6 +1,6 @@
 # Blog posts
 
-Add your posts to this folder as Markdown files.
+Add your posts to this folder as Markdown files
 
 Each post should start with frontmatter like this:
 
