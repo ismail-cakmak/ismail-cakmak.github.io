@@ -23,6 +23,10 @@ const staticDirectories = [
   'images'
 ];
 
+const optionalDirectories = [
+  'posts/image'
+];
+
 const optionalFiles = [
   'CNAME',
   'favicon.ico',
@@ -73,6 +77,7 @@ async function buildSite() {
 
   await Promise.all(staticFiles.map(copyIntoDist));
   await Promise.all(staticDirectories.map(copyIntoDist));
+  await Promise.all(optionalDirectories.map(copyIfPresent));
   await Promise.all(optionalFiles.map(copyIfPresent));
 
   const postsOutputDir = path.join(distDir, 'posts');

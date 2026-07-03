@@ -1,5 +1,18 @@
 [
   {
+    "slug": "lucida-app-onboarding-analysis",
+    "legacySlugs": [],
+    "url": "blog/lucida-app-onboarding-analysis/",
+    "title": "Lucida App Onboarding Analysis",
+    "date": "2026-07-03",
+    "tags": [
+      "product",
+      "onboarding"
+    ],
+    "excerpt": "Screenshots and notes from Lucida's onboarding and lesson-map experience.",
+    "file": "posts/lucida-app-onboarding-analysis.md"
+  },
+  {
     "slug": "why-organic-worth-testing",
     "legacySlugs": [],
     "url": "blog/why-organic-worth-testing/",

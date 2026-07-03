@@ -116,8 +116,14 @@ function escapeAttribute(value) {
 }
 
 function renderInlineMarkdown(text) {
+  const mediaTokens = [];
   const linkTokens = [];
   let rendered = escapeHtml(text);
+  rendered = rendered.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
+    const token = `__MEDIA_${mediaTokens.length}__`;
+    mediaTokens.push(`<img src="${escapeAttribute(url)}" alt="${escapeAttribute(alt)}" loading="lazy">`);
+    return token;
+  });
   rendered = rendered.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
     const token = `__LINK_${linkTokens.length}__`;
     linkTokens.push(`<a href="${escapeAttribute(url)}">${label}</a>`);
@@ -127,6 +133,7 @@ function renderInlineMarkdown(text) {
   rendered = rendered.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   rendered = rendered.replace(/\*([^*]+)\*/g, '<em>$1</em>');
   rendered = linkTokens.reduce((output, token, index) => output.replace(`__LINK_${index}__`, token), rendered);
+  rendered = mediaTokens.reduce((output, token, index) => output.replace(`__MEDIA_${index}__`, token), rendered);
   return rendered;
 }
 

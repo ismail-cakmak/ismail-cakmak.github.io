@@ -1,6 +1,20 @@
 window.POSTS_CONTENT = {
-  "generatedAt": "2026-07-03T13:44:49.423Z",
+  "generatedAt": "2026-07-03T14:16:04.769Z",
   "posts": [
+    {
+      "slug": "lucida-app-onboarding-analysis",
+      "legacySlugs": [],
+      "url": "blog/lucida-app-onboarding-analysis/",
+      "title": "Lucida App Onboarding Analysis",
+      "date": "2026-07-03",
+      "tags": [
+        "product",
+        "onboarding"
+      ],
+      "excerpt": "Screenshots and notes from Lucida's onboarding and lesson-map experience.",
+      "file": "posts/lucida-app-onboarding-analysis.md",
+      "body": "---\ntitle: Lucida App Onboarding Analysis\nslug: lucida-app-onboarding-analysis\ndate: 2026-07-03\ntags: product, onboarding\nexcerpt: Screenshots and notes from Lucida's onboarding and lesson-map experience.\n---\n\nLucida's onboarding and home experience sits in the same visual family as language-learning apps like Learna, Lingo, and Pingo: fast personalization, an obvious lesson path, gamified counters, and a direct route into speaking practice.\n\nThe screenshots below capture the main comparison points.\n\n## Onboarding Promise\n\n![Lucida daily dedication onboarding screen compared with Learna welcome screen](posts/image/lucida-app-onboarding-analysis/1.png)\n\nLucida asks for expected daily time and translates that choice into an estimated monthly learning output. Learna leads with a clearer value comparison: cheaper than a real tutor, with the AI tutor framed as the product.\n\n## Home And Lesson Map\n\n![Lucida, Learna, and Duolingo-style lesson map comparison](posts/image/lucida-app-onboarding-analysis/2.png)\n\nLucida's course map is recognizable and easy to understand, but it competes with several other actions on the same screen: casual talk, upgrade, lesson cards, songs, bottom navigation, and progress.\n\n![Lucida lesson map compared with Lingo, Pingo, and Learna](posts/image/lucida-app-onboarding-analysis/3.png)\n\nAcross the comparable apps, the strongest pattern is a single obvious next action. Pingo makes the first action especially clear with one central start button, while Learna makes the tutor character the anchor of the screen.\n\n## Personalization Flow\n\n![Lucida onboarding screens for gender, age group, and personalized motivation](posts/image/lucida-app-onboarding-analysis/4.png)\n\nLucida's personalization flow uses familiar onboarding steps: demographic questions, progress indication, and a motivational payoff screen before the user starts.\n\n## Gamification And Urgency\n\n![Lingo lesson map with timer highlighted](posts/image/lucida-app-onboarding-analysis/5.png)\n\n![Pingo and Learna gamification counters highlighted](posts/image/lucida-app-onboarding-analysis/6.png)\n\nThe competitors consistently place urgency and progress signals near the top of the screen. Lucida can use the same pattern, but the most important question is whether those signals push users toward the first meaningful learning action or simply add more visual weight.\n"
+    },
     {
       "slug": "why-organic-worth-testing",
       "legacySlugs": [],

@@ -506,6 +506,17 @@ a:hover {
   font-size: 0.98rem;
 }
 
+.post-page .post-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  max-height: 720px;
+  margin: 1.75rem auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-subtle);
+}
+
 .post-page .post-body h2 {
   font-size: 1.15rem;
   margin-top: 2rem;
