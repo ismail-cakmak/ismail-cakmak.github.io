@@ -1,5 +1,18 @@
 [
   {
+    "slug": "why-organic-worth-testing",
+    "legacySlugs": [],
+    "url": "blog/why-organic-worth-testing/",
+    "title": "Why Organic Is a Layer Worth Trying for App Studios",
+    "date": "2026-07-03",
+    "tags": [
+      "growth",
+      "marketing"
+    ],
+    "excerpt": "Why organic distribution is worth testing as a growth layer for app studios.",
+    "file": "posts/why-organic-worth-testing.md"
+  },
+  {
     "slug": "how-linux-package-management-actually-works",
     "legacySlugs": [
       "apt-and-linux-packages"
