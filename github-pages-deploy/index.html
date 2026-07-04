@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HookDeck</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell" id="app-shell">
+      <aside class="rail" id="sidebar">
+        <div class="rail-header">
+          <button
+            class="icon-button sidebar-close"
+            id="sidebar-close"
+            type="button"
+            aria-controls="sidebar"
+            aria-label="Close sidebar"
+            title="Close sidebar"
+          >
+            <span aria-hidden="true"></span>
+          </button>
+          <div class="brand">
+            <span class="brand-mark">HD</span>
+            <span class="brand-name">HookDeck</span>
+          </div>
+        </div>
+
+        <nav class="nav-tabs" aria-label="Primary">
+          <button class="nav-tab is-active" data-view="videos" type="button">
+            <span class="nav-icon">#</span>
+            Videos
+          </button>
+          <button class="nav-tab" data-view="formats" type="button">
+            <span class="nav-icon">+</span>
+            Formats
+          </button>
+        </nav>
+
+        <div class="rail-stats" aria-label="Database totals">
+          <div>
+            <span id="stat-videos">0</span>
+            <small>Videos</small>
+          </div>
+          <div>
+            <span id="stat-accounts">0</span>
+            <small>Accounts</small>
+          </div>
+          <div>
+            <span id="stat-formats">0</span>
+            <small>Formats</small>
+          </div>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div class="title-block">
+            <button
+              class="icon-button sidebar-toggle"
+              id="sidebar-toggle"
+              type="button"
+              aria-controls="sidebar"
+              aria-expanded="false"
+              aria-label="Open sidebar"
+              title="Open sidebar"
+            >
+              <span aria-hidden="true"></span>
+            </button>
+            <div class="headline-block">
+              <h1 id="page-title">HookDeck</h1>
+              <p class="view-label" id="view-label">Video Catalog</p>
+            </div>
+          </div>
+          <div class="top-actions">
+            <label class="search-box" for="search-input">
+              <span>Search</span>
+              <input id="search-input" type="search" placeholder="caption, account, video id" />
+            </label>
+            <button class="icon-button" id="refresh-button" type="button" title="Refresh data">
+              <span aria-hidden="true">R</span>
+            </button>
+          </div>
+        </header>
+
+        <section class="view is-active" id="videos-view" aria-labelledby="page-title">
+          <section class="filter-band" aria-label="Video filters">
+            <label>
+              <span>App</span>
+              <select id="app-filter"></select>
+            </label>
+            <label>
+              <span>Account</span>
+              <input id="account-filter" list="account-options" placeholder="all accounts" />
+              <datalist id="account-options"></datalist>
+            </label>
+            <label>
+              <span>Format</span>
+              <select id="format-filter"></select>
+            </label>
+            <label>
+              <span>Status</span>
+              <select id="status-filter">
+                <option value="">Any</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </label>
+            <label>
+              <span>Sort</span>
+              <select id="sort-select">
+                <option value="views:desc">Views high to low</option>
+                <option value="views:asc">Views low to high</option>
+                <option value="upload_date:desc">Newest first</option>
+                <option value="upload_date:asc">Oldest first</option>
+                <option value="engagement:desc">Engagement high to low</option>
+                <option value="engagement:asc">Engagement low to high</option>
+                <option value="username:asc">Account A to Z</option>
+                <option value="username:desc">Account Z to A</option>
+              </select>
+            </label>
+            <fieldset class="segmented" aria-label="Date preset">
+              <legend>Time</legend>
+              <button class="is-active" data-preset="" type="button">All</button>
+              <button data-preset="last_30_days" type="button">Last 30</button>
+              <button data-preset="last_90_days" type="button">Last 90</button>
+              <button data-preset="this_month" type="button">This month</button>
+            </fieldset>
+            <label>
+              <span>From</span>
+              <input id="date-from" type="date" />
+            </label>
+            <label>
+              <span>To</span>
+              <input id="date-to" type="date" />
+            </label>
+            <button class="ghost-button" id="clear-filters" type="button">Clear</button>
+          </section>
+
+          <section class="action-strip" aria-label="Bulk actions">
+            <div class="selection-meter">
+              <strong id="selected-count">0</strong>
+              <span>selected</span>
+            </div>
+            <label>
+              <span>Assign format</span>
+              <select id="bulk-format-select"></select>
+            </label>
+            <button class="primary-button" id="assign-format-button" type="button">Assign</button>
+            <div class="result-count" id="result-count">0 videos</div>
+          </section>
+
+          <section class="table-wrap" aria-label="Videos">
+            <table class="video-table">
+              <thead>
+                <tr>
+                  <th class="check-cell">
+                    <input id="select-page" type="checkbox" aria-label="Select page" />
+                  </th>
+                  <th>Video</th>
+                  <th>Account</th>
+                  <th>App</th>
+                  <th>
+                    <button class="sort-button" data-sort="views" type="button">Views</button>
+                  </th>
+                  <th>
+                    <button class="sort-button" data-sort="engagement" type="button">Eng.</button>
+                  </th>
+                  <th>
+                    <button class="sort-button" data-sort="upload_date" type="button">Date</button>
+                  </th>
+                  <th>Formats</th>
+                </tr>
+              </thead>
+              <tbody id="video-rows"></tbody>
+            </table>
+            <div class="empty-state" id="empty-state" hidden>
+              <strong>No videos match these filters.</strong>
+              <span>Current filter set returned zero rows.</span>
+            </div>
+          </section>
+
+          <footer class="pager" aria-label="Pagination">
+            <button class="ghost-button" id="prev-page" type="button">Prev</button>
+            <span id="page-label">Page 1</span>
+            <button class="ghost-button" id="next-page" type="button">Next</button>
+          </footer>
+        </section>
+
+        <section class="view" id="formats-view" aria-label="Formats">
+          <div class="formats-layout">
+            <section class="format-editor" aria-label="Create format">
+              <h2>Create Format</h2>
+              <form id="format-form">
+                <input id="format-id" type="hidden" />
+                <label>
+                  <span>Name</span>
+                  <input id="format-name" required maxlength="80" placeholder="Problem-solution hook" />
+                </label>
+                <label>
+                  <span>Description</span>
+                  <textarea id="format-description" rows="5" placeholder="Shared structure, angle, or edit pattern"></textarea>
+                </label>
+                <div class="form-actions">
+                  <button class="primary-button" type="submit">Save</button>
+                  <button class="ghost-button" id="reset-format-form" type="button">Reset</button>
+                </div>
+              </form>
+            </section>
+
+            <section class="format-list-panel" aria-label="Saved formats">
+              <div class="section-heading">
+                <h2>Saved Formats</h2>
+                <span id="format-total">0 total</span>
+              </div>
+              <div class="format-list" id="format-list"></div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>

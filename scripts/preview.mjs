@@ -26,6 +26,7 @@ const watchEntries = [
   'blog.html',
   'css',
   'gallery.html',
+  'github-pages-deploy',
   'images',
   'index.html',
   'js',

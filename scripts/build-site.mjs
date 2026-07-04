@@ -20,7 +20,8 @@ const staticFiles = [
 const staticDirectories = [
   'css',
   'js',
-  'images'
+  'images',
+  'github-pages-deploy'
 ];
 
 const optionalDirectories = [
