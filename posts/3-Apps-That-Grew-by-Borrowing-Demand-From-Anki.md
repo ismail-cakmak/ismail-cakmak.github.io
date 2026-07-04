@@ -1,3 +1,11 @@
+---
+title: 3 Apps That Grew by Riding App Store Search Demand
+slug: apps-that-grew-by-riding-app-store-search-demand
+date: 2026-07-04
+tags: growth, aso
+excerpt: How Cogni, Noji, and Mopiq grew by positioning around existing App Store search demand.
+---
+
 # 3 Apps That Grew by Riding App Store Search Demand
 
 Some apps do not grow through viral TikToks, big ad campaigns, or influencer pushes.
