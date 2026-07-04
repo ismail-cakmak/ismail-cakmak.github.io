@@ -1,26 +1,21 @@
 ---
 title: Lucida App Homepage and Onboarding Analysis
 slug: lucida-app-onboarding-analysis
-date: 2026-07-03
-tags: product, onboarding
+date: 2026-06-15
+tags: tech
 excerpt: Screenshots and notes from Lucida's onboarding and lesson-map experience.
 ---
-
-
-
 Lucida is already one of the successful consumer apps coming out of Turkey. That is why I think it is worth looking at closely. When a product reaches this level, small UX decisions start to matter more: the first screen, the onboarding questions, the homepage hierarchy, the avatar, the paywall timing, and the way the user is guided into speaking.
 
 I analyzed Lucida’s onboarding and homepage because AI speaking apps are not only about technology. The user also needs to feel safe, motivated, and clear about what to do next. Speaking a new language can be stressful, so the product experience has to reduce that stress from the first session.
 
 In this post, I look at where Lucida already works well, where the experience feels a bit unclear, and how it compares with apps like Learna, Lingo AI, and Pingo. The goal is not to criticize the product from outside, but to understand how a strong app can become even stronger with a clearer homepage, a more emotional onboarding flow, and a better speaking practice experience.
 
-
 # 1. The onboarding and the main app feel slightly different
 
 One of the first things that stands out is the difference between Lucida’s onboarding UI and the rest of the app.
 
 The app itself has a more gamified, roadmap-based feeling. It feels closer to products like Duolingo, where users move through lessons step by step. But the onboarding screens feel more plain and separate from that world.
-
 
 ![Lucida daily dedication onboarding screen compared with Learna welcome screen](posts/image/lucida-app-onboarding-analysis/1.png)
 
@@ -78,21 +73,19 @@ A robot-like avatar can also be helpful because it reminds users that they are n
 
 # 4. Onboarding should follow an emotional journey
 
-
 Learning English is not just about grammar, vocabulary, or lesson plans. For many users, the real problem is emotional. They may feel nervous when speaking. They may be afraid of making mistakes. They may not know how to study. They may have tried before and stopped because the process felt boring or too hard.
 
 So before asking the user to pay, apps should make the user feel three things:
 
 “We understand you” → “We invested in you” → “You can do this” → Paywall
 
-so from user perspective : 
+so from user perspective :
 
 - First: “This app understands my problem.” (user relates with app and solution)
 - Second: “This app created something personal for me.” (anchoring user making them think that they are invested)
 - Third: “I can actually do this.” (making user believing the solution)
 
 This flow makes the paywall feel less sudden. The user is paying for a solution that feels relevant to their own situation rather than just an app.
-
 
 ## 4a. Giving the feeling of “we understand your problem”
 
@@ -108,7 +101,7 @@ A user who wants to improve speaking may think:
 
 These are very common feelings for language learners. If Lucida names these feelings clearly, the user can feel seen. This is important because the app starts to feel like a safe place to practice.
 
-Lingo AI does this well. It asks users if they relate to problems like not knowing how to choose the right lessons, or giving up when the learning plan feels too hard or boring. These questions are simple, but they create a strong connection. The user feels like the app understands the real reason they struggle. Here some of the screens Lingo AI has : 
+Lingo AI does this well. It asks users if they relate to problems like not knowing how to choose the right lessons, or giving up when the learning plan feels too hard or boring. These questions are simple, but they create a strong connection. The user feels like the app understands the real reason they struggle. Here some of the screens Lingo AI has :
 
 - "do you relate to the statement below, I have no idea how to choose the right lessons for me" -> click yes or no
 - "do you relate to the statement below, I can easily give up when my learning plan feels too hard too boring" →  click yes or no
@@ -122,17 +115,14 @@ Here some sample screens could be added to onboarding of Lucida to make user int
 
 ![](posts/image/lucida-app-onboarding-analysis/7.png)
 
+---
 
-----
-
-**UnRot** is one of the best apps that conveys the feeling of “We know the feeling and we are here to help you”. You can watch its onboarding form the video below to get better graps of that goal : 
-
+**UnRot** is one of the best apps that conveys the feeling of “We know the feeling and we are here to help you”. You can watch its onboarding form the video below to get better graps of that goal :
 
 <video controls playsinline preload="metadata" width="100%">
   <source src="posts/image/lucida-app-onboarding-analysis/unrot.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-
 
 ## 4b. Giving the feeling of “this app invested in me”
 
@@ -156,11 +146,7 @@ Then it could show short loading steps:
 - Setting your daily practice rhythm
 - Matching you with your ideal speaking partner
 
-
 This would make the user feel that Lucida has spent effort on them. That feeling matters before the paywall.
-
-
-
 
 ## 4c. Motivating the user before the paywall
 
@@ -173,20 +159,15 @@ Lingo AI handles motivation better. For example, after asking this 2 questions :
 
 it pops up an encouraging screens like “you have great potential to crush your goals”. Plus some scientific evidences shown supporting that.
 
-
 Lucida could leverage same method. A possible three-screen motivation flow could be:
-
 
 ![](posts/image/lucida-app-onboarding-analysis/4.png)
 
-
 Another small but effective trick Lingo AI uses is that its buttons feel more motivational, such as “I can do it” instead of a plain “Continue.”
 
+# 5. Making the user’s daily practice goal visible on the homepage.
 
-# 5. Making the user’s daily practice goal visible on the homepage. 
-
-
-Lucida already asks users how much time they want to practice every day. This is a useful onboarding question. But after onboarding, this goal should not disappear. 
+Lucida already asks users how much time they want to practice every day. This is a useful onboarding question. But after onboarding, this goal should not disappear.
 
 A daily time goal could help users stay active.
 
@@ -208,9 +189,7 @@ The user immediately understands two things:
 
 This makes practice feel smaller and more achievable. It also gives users a reason to continue even when they do not want to start a full lesson.
 
-
 This is especially important for a speaking app. Speaking progress is hard to feel day by day. A user may not notice that their confidence is improving after one short session. But they can clearly see that they practiced for 5 minutes today.
-
 
 After the user completes the daily goal, Lucida could show a small celebration:
 
@@ -227,7 +206,6 @@ For example:
 - Casual Talk → adds to daily speaking time
 - Roleplay → adds to daily speaking time
 - Songs → may add to listening or vocabulary time
-
 
 This makes user dont need to think, “Which feature should I use now?” Instead, they can think, “Which activity helps me complete my goal today?”
 
@@ -265,7 +243,6 @@ A better version would place the user inside the situation.
 
 The user opens the lesson and feels like they are at a train station. There is a ticket seller. The user has a goal: buy a ticket to a specific city. The Lucida avatar is still there, but instead of being the whole experience, it acts like a helper.
 
-
 ![](posts/image/lucida-app-onboarding-analysis/10.png)
 
 This would make the practice feel more natural. The user is not just repeating sentences. They are trying to complete a small real-life task.
@@ -279,14 +256,13 @@ Lucida can still keep Free Talk as a separate mode. Free Talk is useful when the
 So the app can have two clear speaking modes:
 
 - Free Talk : Open conversation with the AI speaking partner.
-
 - Scenario Practice : A guided real-life situation with a clear goal.
 
 This would also reduce confusion on the homepage. “Casual Talk” would clearly mean open conversation. Roadmap nodes would clearly mean structured speaking experiences. The user would understand the difference immediately.
 
 # Final thoughts
 
-Lucida is already one of the most successful consumer apps coming out of Turkey, and that makes this analysis more interesting. 
+Lucida is already one of the most successful consumer apps coming out of Turkey, and that makes this analysis more interesting.
 
 Lucida already has the hard part: a useful product in a growing category.
 

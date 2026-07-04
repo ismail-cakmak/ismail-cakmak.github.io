@@ -1,8 +1,8 @@
 ---
 title: Why Organic Is a Layer Worth Trying for App Studios
 slug: why-organic-worth-testing
-date: 2026-07-03
-tags: growth, marketing
+date: 2026-05-13
+tags: tech
 excerpt: Why organic distribution is worth testing as a growth layer for app studios.
 ---
 # Why Organic Is a Layer Worth Trying for App Studios

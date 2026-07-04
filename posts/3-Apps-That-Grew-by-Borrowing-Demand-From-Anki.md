@@ -1,8 +1,8 @@
 ---
 title: 2 Apps That Grew by Riding App Store Search Demand
 slug: apps-that-grew-by-riding-app-store-search-demand
-date: 2026-07-04
-tags: growth, aso
+date: 2026-07-01
+tags: tech
 excerpt: How Cogni, Noji, and Mopiq grew by positioning around existing App Store search demand.
 ---
 Some apps do not grow through viral TikToks, big ad campaigns, or influencer pushes.
@@ -19,9 +19,7 @@ They are different products, but they all point to the same lesson: App Store se
 
 Cogni is a flashcard learning app with ready-made topics like languages, medicine, anatomy, exam prep, math, law, geography, and computing. It launched in late 2024 and quickly reached meaningful download and revenue numbers.
 
-
 ![](posts/image/3-Apps-That-Grew-by-Borrowing-Demand-From-Anki/cogni-3.png)
-
 
 What stands out is that there is not much visible social media activity behind the growth.
 
@@ -32,7 +30,7 @@ What stands out is that there is not much visible social media activity behind t
 
 That makes the growth smell so much ASO :)
 
-The key move seems to be ASO around the word **Anki**. 
+The key move seems to be ASO around the word **Anki**.
 
 When we look up to the app stores of the countries that app gets most downloads in last 30 days. We notice something: app's title included phrases like **“Study Anki Flashcards”** that borrows free traction from "Anki"
 keyword.
@@ -45,14 +43,13 @@ keyword.
 
 (Brazil App Store)
 
-In the US store, the current title does not include Anki. However when we check it from different source, we can see that in 2025, us store name also had similar phrase : 
+In the US store, the current title does not include Anki. However when we check it from different source, we can see that in 2025, us store name also had similar phrase :
 
 ![](posts/image/3-Apps-That-Grew-by-Borrowing-Demand-From-Anki/cogni-8.png)
 
-They were using same name for Android as well, as we understand from some old comments : 
+They were using same name for Android as well, as we understand from some old comments :
 
 ![](posts/image/3-Apps-That-Grew-by-Borrowing-Demand-From-Anki/cogni-7.png)
-
 
 This suggests a simple but powerful strategy:
 
@@ -63,7 +60,7 @@ People searching for Anki or flashcard-related terms were already high-intent us
 
 Yes, right now they may not attract as much dowload as they were in the 2025. But thanks to that download surge, they have secured a good ASO score with high downloads and reviews. Which still brings consistent US downloads.
 
-Plus, they have a consistent revenue so they can bid on "Anki" keyword on Apple Search Ads that make them able to keep their wheel turning : 
+Plus, they have a consistent revenue so they can bid on "Anki" keyword on Apple Search Ads that make them able to keep their wheel turning :
 
 ![](posts/image/3-Apps-That-Grew-by-Borrowing-Demand-From-Anki/cogni-9.png)
 
@@ -91,8 +88,7 @@ There is no obvious large-scale paid social or UGC engine.
 
 Again, the stronger explanation is ASO.
 
-When we check from different source, we can Noji appeared under the name **“Anki Pro: Study Flashcards.”** again in 2025 : 
-
+When we check from different source, we can Noji appeared under the name **“Anki Pro: Study Flashcards.”** again in 2025 :
 
 ![](posts/image/3-Apps-That-Grew-by-Borrowing-Demand-From-Anki/noji-3.png)
 
@@ -100,16 +96,13 @@ That explains their past growth in general extend.
 
 Its App Store subtitles they also used competitor and study keywords like **Gizmo**, **Knowt**, **Quizlet**, and localized learning terms :
 
-
 ![](posts/image/3-Apps-That-Grew-by-Borrowing-Demand-From-Anki/noji-2.png)
-
 
 The more advanced part is localization.
 
 Noji does not appear to use the same title and subtitle everywhere. In Germany, for example, the listing uses German study keywords like **“Karteikarten Lernen”** and **“Lern App.”**
 
 ![](posts/image/3-Apps-That-Grew-by-Borrowing-Demand-From-Anki/noji-19.png)
-
 
 This is a much better approach than simple translation.
 
@@ -124,24 +117,19 @@ Noji also appears in strong positions for keywords like Anki, Quizlet, Knowt, fl
 
 ![](posts/image/3-Apps-That-Grew-by-Borrowing-Demand-From-Anki/noji-6.png)
 
-
 Also with that fast recurring revenue they reached filling an big ASO gap, they are now able to bid for keywords like "flashcard" and "anki" on Apple Search Ads that brings them consistent downloads.
 
-for "flashcard" keyword : 
+for "flashcard" keyword :
 
 ![](posts/image/3-Apps-That-Grew-by-Borrowing-Demand-From-Anki/noji-4.png)
 
-
-for "anki" keyword : 
+for "anki" keyword :
 
 ![](posts/image/3-Apps-That-Grew-by-Borrowing-Demand-From-Anki/noji-5.png)
-
 
 So the lesson from Noji:
 
 **A new app can grow quickly if it finds an ASO gap + becomes more powerful when it is localized country by country instead of copied across every market.**
-
-
 
 ## The shared growth pattern
 
@@ -159,7 +147,6 @@ Downloads bring revenue.
 Revenue funds ads.
 Ads support rankings and visibility.
 Visibility brings more downloads.
-
 
 This is not flashy growth.
 It is not viral.
