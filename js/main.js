@@ -58,6 +58,45 @@ function normalizeTag(tag = '') {
   return tag.trim().toLowerCase();
 }
 
+function normalizeComparableText(value = '') {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[`*_~]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function shouldShowGeneratedTitle(meta = {}) {
+  const showTitle = String(meta.showTitle ?? '').trim().toLowerCase();
+  const hideTitle = String(meta.hideTitle ?? '').trim().toLowerCase();
+  return showTitle !== 'false' && showTitle !== '0' && hideTitle !== 'true' && hideTitle !== '1';
+}
+
+function removeDuplicateBodyTitle(body = '', title = '') {
+  const lines = body.replace(/\r\n?/g, '\n').split('\n');
+  const firstContentIndex = lines.findIndex(line => line.trim());
+
+  if (firstContentIndex === -1) {
+    return body.trim();
+  }
+
+  const firstLine = lines[firstContentIndex].trim();
+  const match = firstLine.match(/^#\s+(.+?)(?:\s+\{[^}]+\})?$/);
+
+  if (!match) {
+    return body.trim();
+  }
+
+  if (normalizeComparableText(match[1]) !== normalizeComparableText(title)) {
+    return body.trim();
+  }
+
+  lines.splice(firstContentIndex, 1);
+  return lines.join('\n').trim();
+}
+
 function normalizeTheme(theme) {
   if (THEMES.includes(theme)) {
     return theme;
@@ -490,12 +529,20 @@ async function renderSinglePost() {
     const title = parsed.meta.title || post.title;
     const date = parsed.meta.date || post.date;
     const tags = parsed.meta.tags || post.tags || [];
+    const showTitle = shouldShowGeneratedTitle(parsed.meta);
+    const renderableBody = showTitle
+      ? removeDuplicateBodyTitle(parsed.body, title)
+      : parsed.body;
+    const titleElement = page.querySelector('[data-post-title]');
+    const postHeader = page.querySelector('.post-header');
 
-    page.querySelector('[data-post-title]').textContent = title;
+    titleElement.textContent = title;
+    titleElement.hidden = !showTitle;
+    postHeader.classList.toggle('post-header--titleless', !showTitle);
     page.querySelector('[data-post-date]').textContent = formatLongDate(date);
     page.querySelector('[data-post-date]').setAttribute('datetime', date);
     page.querySelector('[data-post-tags]').innerHTML = renderTags(tags);
-    page.querySelector('[data-post-body]').innerHTML = markdownToHtml(parsed.body);
+    page.querySelector('[data-post-body]').innerHTML = post.html || markdownToHtml(renderableBody);
 
     document.title = `${title} — İsmail Çakmak`;
     ensureCanonicalLink(post);

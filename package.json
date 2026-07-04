@@ -3,9 +3,14 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build-site.mjs",
-    "build:posts": "node scripts/build-posts.mjs"
+    "build:posts": "node scripts/build-posts.mjs",
+    "preview": "node scripts/preview.mjs"
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "markdown-it": "^14.3.0",
+    "markdown-it-attrs": "^5.0.0"
   }
 }

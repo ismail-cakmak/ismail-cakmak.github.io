@@ -71,7 +71,7 @@ function buildRouteHtml(template, {
     .replaceAll('href="blog.html"', `href="${blogHref}"`);
 }
 
-async function buildSite() {
+export async function buildSite() {
   await rm(distDir, { recursive: true, force: true });
   await mkdir(distDir, { recursive: true });
 
@@ -110,7 +110,9 @@ async function buildSite() {
   );
 }
 
-buildSite().catch(error => {
-  console.error(error.message);
-  process.exitCode = 1;
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
+  buildSite().catch(error => {
+    console.error(error.message);
+    process.exitCode = 1;
+  });
+}

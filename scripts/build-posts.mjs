@@ -1,10 +1,14 @@
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import MarkdownIt from 'markdown-it';
+import markdownItAttrs from 'markdown-it-attrs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const defaultProjectRoot = path.resolve(__dirname, '..');
+const frontmatterPattern = /^\s*---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
+const markdown = createMarkdownRenderer();
 
 function slugify(value = '') {
   return value
@@ -29,8 +33,87 @@ function normalizeTag(tag = '') {
   return tag.trim().toLowerCase();
 }
 
+function createMarkdownRenderer() {
+  const md = new MarkdownIt({
+    html: true,
+    breaks: false,
+    linkify: false
+  });
+
+  md.use(markdownItAttrs, {
+    allowedAttributes: [
+      'id',
+      'class',
+      'width',
+      'height',
+      'title',
+      'loading',
+      'target',
+      'rel',
+      /^aria-/,
+      /^data-/
+    ]
+  });
+
+  const defaultHeadingOpen = md.renderer.rules.heading_open
+    || ((tokens, index, options, env, self) => self.renderToken(tokens, index, options));
+
+  md.renderer.rules.heading_open = (tokens, index, options, env, self) => {
+    const token = tokens[index];
+    const nextToken = tokens[index + 1];
+
+    if (!token.attrGet('id') && nextToken?.type === 'inline' && nextToken.content) {
+      token.attrSet('id', slugify(nextToken.content));
+    }
+
+    return defaultHeadingOpen(tokens, index, options, env, self);
+  };
+
+  return md;
+}
+
+function markdownText(value = '') {
+  return value
+    .replace(/\[[^\]]+\]\(([^)]+)\)/g, '$1')
+    .replace(/[`*_~]/g, '')
+    .trim();
+}
+
+function getShowTitle(meta) {
+  const showTitle = String(meta.showTitle ?? '').trim().toLowerCase();
+  const hideTitle = String(meta.hideTitle ?? '').trim().toLowerCase();
+  return showTitle !== 'false' && showTitle !== '0' && hideTitle !== 'true' && hideTitle !== '1';
+}
+
+function removeDuplicateBodyTitle(body, title) {
+  const lines = body.replace(/\r\n?/g, '\n').split('\n');
+  const firstContentIndex = lines.findIndex(line => line.trim());
+
+  if (firstContentIndex === -1) {
+    return body.trim();
+  }
+
+  const firstLine = lines[firstContentIndex].trim();
+  const match = firstLine.match(/^#\s+(.+?)(?:\s+\{[^}]+\})?$/);
+
+  if (!match) {
+    return body.trim();
+  }
+
+  if (slugify(markdownText(match[1])) !== slugify(title)) {
+    return body.trim();
+  }
+
+  lines.splice(firstContentIndex, 1);
+  return lines.join('\n').trim();
+}
+
+export function renderMarkdown(markdownSource = '') {
+  return markdown.render(markdownSource).trim();
+}
+
 export function parseFrontmatter(raw) {
-  const match = raw.match(/^\s*---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+  const match = raw.match(frontmatterPattern);
   if (!match) {
     throw new Error('Post is missing frontmatter.');
   }
@@ -54,6 +137,15 @@ export function parseFrontmatter(raw) {
   return meta;
 }
 
+function getPostBody(raw) {
+  const match = raw.match(frontmatterPattern);
+  if (!match) {
+    throw new Error('Post is missing frontmatter.');
+  }
+
+  return raw.slice(match[0].length).trim();
+}
+
 export function isMarkdownFile(fileName) {
   return fileName.endsWith('.md') && fileName !== 'README.md';
 }
@@ -72,6 +164,10 @@ export async function collectPosts(postsDir) {
     const filePath = path.join(postsDir, fileName);
     const raw = await readFile(filePath, 'utf8');
     const meta = parseFrontmatter(raw);
+    const rawBody = getPostBody(raw);
+    const renderableBody = getShowTitle(meta)
+      ? removeDuplicateBodyTitle(rawBody, meta.title)
+      : rawBody;
     const fileSlug = path.basename(fileName, '.md');
     const slug = slugify(meta.slug || meta.title || fileSlug);
 
@@ -105,7 +201,8 @@ export async function collectPosts(postsDir) {
     posts.push(post);
     contentPosts.push({
       ...post,
-      body: raw
+      body: raw,
+      html: renderMarkdown(renderableBody)
     });
   }
 

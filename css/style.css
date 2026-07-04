@@ -476,6 +476,10 @@ a:hover {
   margin-bottom: 2rem;
 }
 
+.post-page .post-header--titleless {
+  margin-bottom: 1rem;
+}
+
 .post-page .post-back {
   font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
@@ -486,7 +490,7 @@ a:hover {
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.3;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   margin-bottom: 0.5rem;
 }
 
@@ -500,10 +504,67 @@ a:hover {
   margin-left: 0.4rem;
 }
 
+.post-page .post-body {
+  font-size: 0.99rem;
+}
+
+.post-page .post-body::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.post-page .post-body > *:first-child {
+  margin-top: 0;
+}
+
 .post-page .post-body p {
   color: var(--text-secondary);
   margin-bottom: 1.25rem;
   font-size: 0.98rem;
+}
+
+.post-page .post-body strong {
+  color: var(--text);
+}
+
+.post-page .post-body h1,
+.post-page .post-body h2,
+.post-page .post-body h3,
+.post-page .post-body h4 {
+  color: var(--text);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.post-page .post-body h1 {
+  font-size: 1.6rem;
+  margin: 0 0 0.75rem;
+}
+
+.post-page .post-body h2 {
+  font-size: 1.3rem;
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.post-page .post-body h3 {
+  font-size: 1.08rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.55rem;
+}
+
+.post-page .post-body h4 {
+  font-size: 0.98rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.post-page .post-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
 }
 
 .post-page .post-body img {
@@ -517,10 +578,87 @@ a:hover {
   background: var(--bg-subtle);
 }
 
-.post-page .post-body h2 {
-  font-size: 1.15rem;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
+.post-page .post-body p:has(> img:only-child) {
+  margin: 1.75rem 0;
+}
+
+.post-page .post-body p:has(> img:only-child) img {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.post-page .post-body figure {
+  margin: 2rem 0;
+}
+
+.post-page .post-body figure img {
+  margin: 0 auto;
+}
+
+.post-page .post-body figcaption {
+  margin-top: 0.55rem;
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.post-page .post-body img.image-wide,
+.post-page .post-body .image-wide {
+  width: min(calc(100vw - 3rem), 920px);
+  max-width: none;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.post-page .post-body .image-wide img {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  transform: none;
+}
+
+.post-page .post-body img.image-small,
+.post-page .post-body .image-small img {
+  max-width: min(100%, 360px);
+}
+
+.post-page .post-body img.image-plain,
+.post-page .post-body .image-plain img {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.post-page .post-body img.image-left {
+  float: left;
+  max-width: min(42%, 260px);
+  margin: 0.35rem 1.25rem 0.75rem 0;
+}
+
+.post-page .post-body img.image-right {
+  float: right;
+  max-width: min(42%, 260px);
+  margin: 0.35rem 0 0.75rem 1.25rem;
+}
+
+.post-page .post-body .image-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin: 2rem 0;
+}
+
+.post-page .post-body .image-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.post-page .post-body .image-grid img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+  margin: 0;
 }
 
 .post-page .post-body blockquote {
@@ -554,13 +692,37 @@ a:hover {
   border-radius: 0;
 }
 
-.post-page .post-body ul {
+.post-page .post-body ul,
+.post-page .post-body ol {
   margin: 0 0 1.25rem 1.25rem;
   color: var(--text-secondary);
 }
 
 .post-page .post-body li {
   margin-bottom: 0.45rem;
+}
+
+.post-page .post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.post-page .post-body th,
+.post-page .post-body td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.55rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.post-page .post-body th {
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
 /* ===== Mobile ===== */
@@ -595,6 +757,17 @@ a:hover {
 
   .gallery-caption {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .post-page .post-body img.image-left,
+  .post-page .post-body img.image-right {
+    float: none;
+    max-width: 100%;
+    margin: 1.75rem auto;
+  }
+
+  .post-page .post-body .image-grid--two {
+    grid-template-columns: 1fr;
   }
 
 }
