@@ -1,5 +1,5 @@
 ---
-title: 2 Apps That Grew by Riding App Store Search Demand
+title: 2 Apps That Grew For Free By Borrowing Demand from "Anki"
 slug: apps-that-grew-by-riding-app-store-search-demand
 date: 2026-07-01
 tags: tech
