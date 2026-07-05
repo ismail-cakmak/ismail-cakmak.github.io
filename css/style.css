@@ -141,6 +141,32 @@ a:hover {
   border-color: color-mix(in srgb, var(--link) 35%, var(--border));
   background: color-mix(in srgb, var(--link) 13%, transparent);
 }
+
+.header-nav a.header-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.header-nav a.header-icon-link:hover,
+.header-nav a.header-icon-link:focus-visible {
+  color: var(--text);
+  border-color: var(--text-muted);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.header-nav a.header-icon-link svg {
+  width: 15px;
+  height: 15px;
+}
+
 .header-nav a:hover,
 .header-nav a.active {
   color: var(--text);
