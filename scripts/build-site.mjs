@@ -21,7 +21,7 @@ const staticDirectories = [
   'css',
   'js',
   'images',
-  'github-pages-deploy'
+  'hookdeck'
 ];
 
 const optionalDirectories = [

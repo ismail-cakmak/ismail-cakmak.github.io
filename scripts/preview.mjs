@@ -26,7 +26,7 @@ const watchEntries = [
   'blog.html',
   'css',
   'gallery.html',
-  'github-pages-deploy',
+  'hookdeck',
   'images',
   'index.html',
   'js',
