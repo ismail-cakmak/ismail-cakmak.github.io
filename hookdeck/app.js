@@ -15,6 +15,7 @@ const state = {
   currentRows: [],
   searchTimer: null,
   sidebarCollapsed: false,
+  lastOverlaySidebarViewport: false,
   activeFormatTrigger: null,
 };
 
@@ -48,6 +49,7 @@ function rememberElements() {
   Object.assign(els, {
     appShell: $("#app-shell"),
     sidebar: $("#sidebar"),
+    sidebarBackdrop: $("#sidebar-backdrop"),
     sidebarToggle: $("#sidebar-toggle"),
     sidebarClose: $("#sidebar-close"),
     pageTitle: $("#page-title"),
@@ -87,7 +89,15 @@ function rememberElements() {
   });
 }
 
+function isOverlaySidebarViewport() {
+  return window.matchMedia("(max-width: 1180px)").matches;
+}
+
 function getInitialSidebarState() {
+  if (isOverlaySidebarViewport()) {
+    return true;
+  }
+
   try {
     const stored = window.localStorage.getItem(SIDEBAR_STORAGE_KEY);
     if (stored !== null) {
@@ -97,12 +107,15 @@ function getInitialSidebarState() {
     // Local storage can be unavailable in restricted browser contexts.
   }
 
-  return window.matchMedia("(max-width: 1180px)").matches;
+  return false;
 }
 
 function setSidebarCollapsed(collapsed, persist = true) {
   state.sidebarCollapsed = collapsed;
   els.appShell.classList.toggle("sidebar-collapsed", collapsed);
+  const overlayOpen = !collapsed && isOverlaySidebarViewport();
+  document.documentElement.classList.toggle("sidebar-open", overlayOpen);
+  els.sidebarBackdrop.hidden = !overlayOpen;
   els.sidebar.setAttribute("aria-hidden", String(collapsed));
   els.sidebar.inert = collapsed;
   els.sidebarToggle.hidden = !collapsed;
@@ -111,7 +124,7 @@ function setSidebarCollapsed(collapsed, persist = true) {
   els.sidebarToggle.title = "Open sidebar";
   els.sidebarClose.hidden = collapsed;
 
-  if (persist) {
+  if (persist && !isOverlaySidebarViewport()) {
     try {
       window.localStorage.setItem(SIDEBAR_STORAGE_KEY, String(collapsed));
     } catch {
@@ -1053,7 +1066,7 @@ function renderVideoRow(row) {
       <td class="check-cell">
         <input class="row-check" type="checkbox" data-video-id="${row.id}" ${selected} aria-label="Select video" />
       </td>
-      <td>
+      <td class="video-detail-cell">
         <div class="video-cell">
           ${thumbnail}
           <div>
@@ -1065,24 +1078,24 @@ function renderVideoRow(row) {
           </div>
         </div>
       </td>
-      <td>
+      <td data-label="Account">
         <strong>${escapeHtml(row.username || "Unknown")}</strong>
         <div class="subtle">${escapeHtml(row.platform || "")}</div>
       </td>
-      <td><div class="pill-row">${appPills || `<span class="subtle">None</span>`}</div></td>
-      <td>
+      <td data-label="App"><div class="pill-row">${appPills || `<span class="subtle">None</span>`}</div></td>
+      <td data-label="Views">
         <div class="num">${escapeHtml(row.latest_views_text || formatNumber(row.latest_views_count) || "0")}</div>
         <div class="subtle">${formatNumber(row.latest_views_count)}</div>
       </td>
-      <td>
+      <td data-label="Eng.">
         <strong>${escapeHtml(row.latest_engagement_rate_text || "")}</strong>
         <div class="subtle">${escapeHtml(row.latest_viral_performance || "")}</div>
       </td>
-      <td>
+      <td data-label="Date">
         <strong>${escapeHtml(shortDate(row.upload_date))}</strong>
         <div class="subtle">${escapeHtml(row.status || "")}</div>
       </td>
-      <td>
+      <td data-label="Formats">
         <div class="format-cell">
           <div class="pill-row format-pill-row">
             ${formatPills}
@@ -1288,8 +1301,18 @@ function bindEvents() {
     els.sidebarToggle.focus();
   });
 
+  els.sidebarBackdrop.addEventListener("click", () => {
+    setSidebarCollapsed(true);
+    els.sidebarToggle.focus();
+  });
+
   $all(".nav-tab").forEach((button) => {
-    button.addEventListener("click", () => setView(button.dataset.view));
+    button.addEventListener("click", () => {
+      setView(button.dataset.view);
+      if (isOverlaySidebarViewport()) {
+        setSidebarCollapsed(true);
+      }
+    });
   });
 
   els.refresh.addEventListener("click", async () => {
@@ -1493,6 +1516,11 @@ function bindEvents() {
   });
 
   window.addEventListener("resize", () => {
+    const overlayViewport = isOverlaySidebarViewport();
+    const shouldCollapse = overlayViewport && !state.lastOverlaySidebarViewport;
+    setSidebarCollapsed(shouldCollapse ? true : state.sidebarCollapsed, false);
+    state.lastOverlaySidebarViewport = overlayViewport;
+
     if (state.activeFormatTrigger?.isConnected) {
       positionRowFormatMenu(state.activeFormatTrigger);
     }
@@ -1539,6 +1567,7 @@ async function init() {
   rememberElements();
   document.title = `${BRAND_NAME} - ${els.viewLabel.textContent}`;
   els.videoRows.innerHTML = `<tr><td colspan="8" class="subtle">Loading static data...</td></tr>`;
+  state.lastOverlaySidebarViewport = isOverlaySidebarViewport();
   setSidebarCollapsed(getInitialSidebarState(), false);
   syncSortSelect();
   bindEvents();
